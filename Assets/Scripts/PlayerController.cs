@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : NetworkBehaviour
 {
@@ -135,9 +136,5 @@ public class PlayerController : NetworkBehaviour
 
 
         }
-    }
-
-    private void OnDestroy()
-    {
     }
 }
