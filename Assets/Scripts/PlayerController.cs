@@ -7,7 +7,7 @@ public class PlayerController : NetworkBehaviour
 {
     private Animator animator;
     private Camera mainCamera;
-    private TextMesh nameLabel;
+    public TextMesh nameLabel;
 
     const float RUNNING_SPEED = 10.0f;
     const float ROTATION_SPEED = 180.0f;
@@ -71,11 +71,15 @@ public class PlayerController : NetworkBehaviour
     // Lifecycle methods ////////////////////////////
 
     // Use this for initialization
-    void Start ()
+    void Start()
     {
         animator = GetComponent<Animator>();
         mainCamera = Camera.main;
-        nameLabel = transform.Find("Label").gameObject.GetComponent<TextMesh>(); 
+
+        if (isLocalPlayer)
+        {
+            mainCamera.GetComponent<CameraController>().SetTarget(transform);
+        }
     }
 
     // Update is called once per frame
@@ -118,12 +122,6 @@ public class PlayerController : NetworkBehaviour
                 transform.Rotate(new Vector3(0.0f, 1.0f, 0.0f), angle);
             }
 
-            if (mainCamera)
-            {
-                mainCamera.transform.SetPositionAndRotation(transform.position + new Vector3(0.0f, 4.0f, -3.0f), Quaternion.identity);
-                mainCamera.transform.LookAt(transform.position + new Vector3(0.0f, 2.0f, 0.0f), Vector3.up);
-            }
-
             if (Input.GetButtonDown("Jump"))
             {
                 setAnimation("Jumping");
@@ -136,11 +134,6 @@ public class PlayerController : NetworkBehaviour
             #endregion
 
 
-        }
-
-        if (nameLabel)
-        {
-            nameLabel.transform.rotation = Quaternion.identity;
         }
     }
 
