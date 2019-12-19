@@ -16,10 +16,10 @@ public class NetworkJoiner : MonoBehaviour
         {
             if(PlayerPrefs.GetInt("is_host") == 0)
             {
-                NetworkManager.singleton.StartHost();
+                NetworkManagerCustom.singleton.StartHost();
 
-                ipAddress = NetworkManager.singleton.networkAddress;
-                port = NetworkManager.singleton.networkPort;
+                ipAddress = NetworkManagerCustom.singleton.networkAddress;
+                port = NetworkManagerCustom.singleton.networkPort;
             }
             else
             {
@@ -36,10 +36,10 @@ public class NetworkJoiner : MonoBehaviour
                     return;
                 }
 
-                NetworkManager.singleton.networkAddress = ipAddress;
-                NetworkManager.singleton.networkPort = port;
+                NetworkManagerCustom.singleton.networkAddress = ipAddress;
+                NetworkManagerCustom.singleton.networkPort = port;
 
-                NetworkClient client = NetworkManager.singleton.StartClient();
+                NetworkClient client = NetworkManagerCustom.singleton.StartClient();
                 client.RegisterHandler(MsgType.Error, OnError);
                 client.RegisterHandler(MsgType.Disconnect, OnError);
             }

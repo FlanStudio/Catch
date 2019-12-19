@@ -13,6 +13,10 @@ public class PlayerController : NetworkBehaviour
     const float RUNNING_SPEED = 10.0f;
     const float ROTATION_SPEED = 10f;
 
+    public uint playerPrefabID = 0u;
+    public GameObject player1Prefab;
+    public GameObject player2Prefab;
+
     //// Name sync /////////////////////////////////////
 
     [SyncVar(hook = "SyncNameChanged")]  
@@ -114,10 +118,8 @@ public class PlayerController : NetworkBehaviour
             }
             else
             {
-                setAnimation("Idling");
+                setAnimation("Idling");               
             }
-
-           
               
             //if (Input.GetButtonDown("Jump"))
             //{
@@ -128,7 +130,22 @@ public class PlayerController : NetworkBehaviour
             //{
             //    setAnimation("Kicking");
             //}
+
+            if(Input.GetKeyDown(KeyCode.F4))
+            {
+                Respawn();
+            }
+
             #endregion
         }
+    }
+
+    public void Respawn()
+    {
+        var newPlayer = Instantiate(playerPrefabID == 0 ? player1Prefab : player2Prefab);
+
+        NetworkServer.ReplacePlayerForConnection(connectionToClient, newPlayer, 0);
+
+        Destroy(gameObject);
     }
 }

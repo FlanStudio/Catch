@@ -2864,6 +2864,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nameLabel: {fileID: 2758630538140940387}
+  playerPrefabID: 0
+  player1Prefab: {fileID: 7302534106834024561}
+  player2Prefab: {fileID: 1312910371334386, guid: f9333802a5f8b4946b29953d834fd803,
+    type: 3}
   playerName: Player
 --- !u!136 &7257444845148478109
 CapsuleCollider:
