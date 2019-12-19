@@ -525,6 +525,10 @@ MonoBehaviour:
   matchSize: 4
   isNetworkActive: 0
   matchMaker: {fileID: 0}
+  localPlayer: {fileID: 0}
+  foreignPlayer: {fileID: 0}
+  catcherSpawnPoint: {fileID: 4155257805566660833}
+  catchedSpawnPoint: {fileID: 1456408765}
 --- !u!4 &1108468123
 Transform:
   m_ObjectHideFlags: 0
@@ -876,6 +880,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c777cfbdf30f1849a31a4bc79fc788c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player1: {fileID: 0}
+  player2: {fileID: 0}
+  localPlayer: {fileID: 0}
+  max_points: 10
+  player1_points: 0
+  player2_points: 0
+  time: 0
+  max_time: 30
 --- !u!4 &1826779785
 Transform:
   m_ObjectHideFlags: 0

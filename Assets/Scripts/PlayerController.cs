@@ -84,6 +84,11 @@ public class PlayerController : NetworkBehaviour
         if (isLocalPlayer)
         {
             mainCamera.GetComponent<CameraController>().SetTarget(transform);
+            NetworkManagerCustom.singleton.localPlayer = this.gameObject;
+        }
+        else
+        {
+            NetworkManagerCustom.singleton.foreignPlayer = this.gameObject;
         }
     }
 
@@ -131,21 +136,7 @@ public class PlayerController : NetworkBehaviour
             //    setAnimation("Kicking");
             //}
 
-            if(Input.GetKeyDown(KeyCode.F4))
-            {
-                Respawn();
-            }
-
             #endregion
         }
-    }
-
-    public void Respawn()
-    {
-        var newPlayer = Instantiate(playerPrefabID == 0 ? player1Prefab : player2Prefab);
-
-        NetworkServer.ReplacePlayerForConnection(connectionToClient, newPlayer, 0);
-
-        Destroy(gameObject);
     }
 }
