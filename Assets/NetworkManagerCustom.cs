@@ -12,6 +12,16 @@ public class CustomMessage : MessageBase
 
 public class NetworkManagerCustom : NetworkManager
 {
+    private NetworkJoiner netJoiner;
+
+    public static NetworkManagerCustom singleton;
+
+    private void Awake()
+    {
+        singleton = this;
+        netJoiner = GetComponent<NetworkJoiner>();
+    }
+
     public override void OnStartServer()
     {
         NetworkServer.RegisterHandler(MsgType.Highest + 1, OnPrefabResponse);
@@ -35,7 +45,7 @@ public class NetworkManagerCustom : NetworkManager
     private void OnPrefabRequest(NetworkMessage netMsg)
     {
         CustomMessage msg = netMsg.ReadMessage<CustomMessage>();
-        msg.prefabIndex = (uint) (GetComponent<NetworkJoiner>().isHost ? 0 : 1);
+        msg.prefabIndex = (uint) (netJoiner.isHost ? 0 : 1);
         client.Send(MsgType.Highest + 1, msg);
     }
 
