@@ -29,19 +29,19 @@ public class PlayerController : NetworkBehaviour
     {
         if (isLocalPlayer)
         {
-            GUILayout.BeginArea(new Rect(Screen.width - 260, 10, 250, Screen.height - 20));
+            //GUILayout.BeginArea(new Rect(Screen.width - 260, 10, 250, Screen.height - 20));
 
-            string prevPlayerName = playerName;
-            playerName = GUILayout.TextField(playerName);
-            if (playerName != prevPlayerName)
-            {
-                if (nameLabel != null)
-                {
-                    CmdChangeName(playerName);
-                }
-            }
+            //string prevPlayerName = playerName;
+            //playerName = GUILayout.TextField(playerName);
+            //if (playerName != prevPlayerName)
+            //{
+            //    if (nameLabel != null)
+            //    {
+            //        CmdChangeName(playerName);
+            //    }
+            //}
 
-            GUILayout.EndArea();
+            //GUILayout.EndArea();
         }      
     }
 

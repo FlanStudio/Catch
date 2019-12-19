@@ -7,7 +7,7 @@ using System;
 
 public class NetworkJoiner : MonoBehaviour
 {
-    private bool isHost = true;
+    public bool isHost = true;
     private string ipAddress = "";
     private int port;
     private void Awake()
