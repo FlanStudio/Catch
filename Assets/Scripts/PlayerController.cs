@@ -11,7 +11,7 @@ public class PlayerController : NetworkBehaviour
     public TextMesh nameLabel;
 
     const float RUNNING_SPEED = 10.0f;
-    const float ROTATION_SPEED = 180.0f;
+    const float ROTATION_SPEED = 10f;
 
     //// Name sync /////////////////////////////////////
 
@@ -89,52 +89,46 @@ public class PlayerController : NetworkBehaviour
         if(isLocalPlayer)
         {
             #region MOVEMENT
-            Vector3 translation = new Vector3();
-            float angle = 0.0f;
 
             float horizontalAxis = Input.GetAxis("Horizontal");
             float verticalAxis = Input.GetAxis("Vertical");
 
-            if (verticalAxis > 0.0)
+            Vector3 desiredRotation = Vector3.zero;
+
+            Vector2 move = new Vector2(horizontalAxis, verticalAxis);
+            if(move != Vector2.zero)
             {
                 setAnimation("Running");
-                translation += new Vector3(0.0f, 0.0f, verticalAxis * RUNNING_SPEED * Time.deltaTime);
-                transform.Translate(translation);
-            }
-            else if (verticalAxis < 0.0)
-            {
-                setAnimation("Running backwards");
-                translation += new Vector3(0.0f, 0.0f, verticalAxis * RUNNING_SPEED * Time.deltaTime * 0.5f);
-                transform.Translate(translation);
+                desiredRotation = (mainCamera.transform.forward * verticalAxis + mainCamera.transform.right * horizontalAxis) / 2;
+                desiredRotation.y = 0;
+
+                if (desiredRotation != Vector3.zero)
+                {
+                    Vector3 playerRotation = transform.forward;
+
+                    float angle = Vector3.SignedAngle(playerRotation, desiredRotation, Vector3.up);
+                    transform.Rotate(Vector3.up, angle * ROTATION_SPEED * Time.deltaTime);
+                }
+
+                transform.Translate(Vector3.forward * Time.deltaTime * RUNNING_SPEED);
             }
             else
             {
                 setAnimation("Idling");
             }
 
-            if (horizontalAxis > 0.0f)
-            {
-                angle = horizontalAxis * Time.deltaTime * ROTATION_SPEED;
-                transform.Rotate(new Vector3(0.0f, 1.0f, 0.0f), angle);
-            }
-            else if (horizontalAxis < 0.0f)
-            {
-                angle = horizontalAxis * Time.deltaTime * ROTATION_SPEED;
-                transform.Rotate(new Vector3(0.0f, 1.0f, 0.0f), angle);
-            }
+           
+              
+            //if (Input.GetButtonDown("Jump"))
+            //{
+            //    setAnimation("Jumping");
+            //}
 
-            if (Input.GetButtonDown("Jump"))
-            {
-                setAnimation("Jumping");
-            }
-
-            if (Input.GetButtonDown("Fire1"))
-            {
-                setAnimation("Kicking");
-            }
+            //if (Input.GetButtonDown("Fire1"))
+            //{
+            //    setAnimation("Kicking");
+            //}
             #endregion
-
-
         }
     }
 }
