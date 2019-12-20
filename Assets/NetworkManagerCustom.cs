@@ -18,7 +18,7 @@ public class RespawnMessage : MessageBase
 
 public class NetworkManagerCustom : NetworkManager
 {
-    private NetworkJoiner netJoiner;
+    public NetworkJoiner netJoiner;
 
     [HideInInspector]
     public GameObject localPlayer;
