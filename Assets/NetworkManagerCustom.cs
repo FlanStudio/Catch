@@ -13,7 +13,7 @@ public class CustomMessage : MessageBase
 public class RespawnMessage : MessageBase
 {
     public const short RespawnType = MsgType.Highest + 2;
-    public bool isCatcher = false;
+    public bool isChaser = false;
 }
 
 public class NetworkManagerCustom : NetworkManager
@@ -28,8 +28,8 @@ public class NetworkManagerCustom : NetworkManager
 
     public static NetworkManagerCustom singleton;
 
-    public Transform catcherSpawnPoint;
-    public Transform catchedSpawnPoint;
+    public Transform chaserSpawnPoint;
+    public Transform chasedSpawnPoint;
 
     private void Awake()
     {
@@ -76,15 +76,15 @@ public class NetworkManagerCustom : NetworkManager
     private void OnRespawnRequest(NetworkMessage netMsg)
     {
         RespawnMessage msg = netMsg.ReadMessage<RespawnMessage>();
-        if(msg.isCatcher)
+        if(msg.isChaser)
         {
-            localPlayer.transform.position = catcherSpawnPoint.position;
-            localPlayer.transform.rotation = catcherSpawnPoint.rotation;
+            foreignPlayer.transform.position = chaserSpawnPoint.position;
+            foreignPlayer.transform.rotation = chaserSpawnPoint.rotation;
         }
         else
         {
-            localPlayer.transform.position = catchedSpawnPoint.position;
-            localPlayer.transform.rotation = catchedSpawnPoint.rotation;
+            foreignPlayer.transform.position = chasedSpawnPoint.position;
+            foreignPlayer.transform.rotation = chasedSpawnPoint.rotation;
         }
     }
 
@@ -96,24 +96,24 @@ public class NetworkManagerCustom : NetworkManager
         }
     }
 
-    public void RespawnPlayers(bool isCatcher)
+    public void RespawnPlayers(bool isChaser)
     {
         if (!netJoiner.isHost)
             return;
 
-        if(isCatcher)
+        if(isChaser)
         {
-            localPlayer.transform.position = catcherSpawnPoint.position;
-            localPlayer.transform.rotation = catcherSpawnPoint.rotation;
+            localPlayer.transform.position = chaserSpawnPoint.position;
+            localPlayer.transform.rotation = chaserSpawnPoint.rotation;
         }
         else
         {
-            localPlayer.transform.position = catchedSpawnPoint.position;
-            localPlayer.transform.rotation = catchedSpawnPoint.rotation;
+            localPlayer.transform.position = chasedSpawnPoint.position;
+            localPlayer.transform.rotation = chasedSpawnPoint.rotation;
         }
 
         RespawnMessage msg = new RespawnMessage();
-        msg.isCatcher = !isCatcher;
+        msg.isChaser = !isChaser;
         NetworkServer.SendToClient(foreignPlayer.GetComponent<PlayerController>().connectionToClient.connectionId, RespawnMessage.RespawnType, msg);
     }
 }

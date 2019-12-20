@@ -41,7 +41,6 @@ public class GameManagerLOL : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         time += Time.deltaTime;
         
         if (player1_points >= 10 || player2_points > 10)
@@ -69,26 +68,14 @@ public class GameManagerLOL : MonoBehaviour
     public static void PlayerCatched()
     {
         if (singleton.player_chaser == singleton.player1)
-        {
-            if(singleton.localPlayer == singleton.player1)
-            {
-                Application.LoadLevel(2); //For the moment
-                singleton.player1_points++;
-            }
-            else
-                Application.LoadLevel(3);
-
+        {          
+            singleton.player1_points++;       
         }
         else
-        {
-            if(singleton.localPlayer == singleton.player2)
-            {
-                Application.LoadLevel(2); //For the moment
-                singleton.player2_points++;
-            }
-            else
-                Application.LoadLevel(3);
-
+        {           
+            singleton.player2_points++;         
         }
+
+        NetworkManagerCustom.singleton.RespawnPlayers(singleton.localPlayer != singleton.player_chaser);
     }
 }

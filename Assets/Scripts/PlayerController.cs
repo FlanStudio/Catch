@@ -10,7 +10,7 @@ public class PlayerController : NetworkBehaviour
     private Camera mainCamera;
     public TextMesh nameLabel;
 
-    const float RUNNING_SPEED = 10.0f;
+    const float RUNNING_SPEED = 17.0f;
     const float ROTATION_SPEED = 10f;
 
     public uint playerPrefabID = 0u;
@@ -137,6 +137,14 @@ public class PlayerController : NetworkBehaviour
             //}
 
             #endregion
+        }
+    }
+
+    private void OnTriggerEnter(Collider collider)
+    {
+        if(collider.CompareTag("Player"))
+        {
+            GameManagerLOL.PlayerCatched();
         }
     }
 }

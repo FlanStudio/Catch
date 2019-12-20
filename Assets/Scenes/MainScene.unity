@@ -38,13 +38,13 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 11
-  m_GIWorkflowMode: 0
+  m_GIWorkflowMode: 1
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -377,8 +377,8 @@ MonoBehaviour:
   matchMaker: {fileID: 0}
   localPlayer: {fileID: 0}
   foreignPlayer: {fileID: 0}
-  catcherSpawnPoint: {fileID: 4155257805566660833}
-  catchedSpawnPoint: {fileID: 1456408765}
+  chaserSpawnPoint: {fileID: 4155257805566660833}
+  chasedSpawnPoint: {fileID: 1456408765}
 --- !u!4 &1108468123
 Transform:
   m_ObjectHideFlags: 0
@@ -712,6 +712,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 561546889212317028, guid: f2ae40f7d608e7e47b23a373be551050,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 561546889882290633, guid: f2ae40f7d608e7e47b23a373be551050,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 360796414344569599, guid: f2ae40f7d608e7e47b23a373be551050,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 0.4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f2ae40f7d608e7e47b23a373be551050, type: 3}
