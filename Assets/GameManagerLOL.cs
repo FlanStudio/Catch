@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManagerLOL : MonoBehaviour
 {
@@ -10,13 +11,15 @@ public class GameManagerLOL : MonoBehaviour
     public GameObject localPlayer;
     private GameObject player_chaser;
 
+    public Text label;
+
     public uint max_points = 10;
 
     public uint player1_points = 0;
     public uint player2_points = 0;
 
     public float time;
-    public float max_time = 30;
+    public float max_time = 50;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -41,6 +44,11 @@ public class GameManagerLOL : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (localPlayer == player1)
+            label.text = "CHASER";
+        else
+            label.text = "RUNNER";
+
         time += Time.deltaTime;
         
         if (player1_points >= 10 || player2_points > 10)
