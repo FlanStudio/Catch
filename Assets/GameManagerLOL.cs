@@ -29,18 +29,7 @@ public class GameManagerLOL : MonoBehaviour
     {
         int random;
         random = Random.Range(0, 2);
-
-        if (NetworkManagerCustom.singleton.netJoiner.isHost)
-        {
-            player1 = NetworkManagerCustom.singleton.localPlayer;
-            player2 = NetworkManagerCustom.singleton.foreignPlayer;
-        }
-        else
-        {
-            player1 = NetworkManagerCustom.singleton.foreignPlayer;
-            player2 = NetworkManagerCustom.singleton.localPlayer;
-        }
-
+        
         if(random == 0)
         {
             player_chaser = player1;
@@ -55,9 +44,10 @@ public class GameManagerLOL : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        localPlayer = NetworkManagerCustom.singleton.localPlayer;
-
-        
+        if (localPlayer == player1)
+            label.text = "CHASER";
+        else
+            label.text = "RUNNER";
 
         time += Time.deltaTime;
         
@@ -95,19 +85,5 @@ public class GameManagerLOL : MonoBehaviour
         }
 
         NetworkManagerCustom.singleton.RespawnPlayers(singleton.localPlayer != singleton.player_chaser);
-
-        if(singleton.player_chaser == singleton.player1)
-        {
-            singleton.player_chaser = singleton.player2;
-        }
-        else
-        {
-            singleton.player_chaser = singleton.player1;
-        }
-
-        if (singleton.player_chaser == NetworkManagerCustom.singleton.localPlayer)
-            singleton.label.text = "CHASER";
-        else
-            singleton.label.text = "RUNNER";
     }
 }
